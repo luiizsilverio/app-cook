@@ -3,6 +3,7 @@ import { ScrollView, Text, View } from 'react-native';
 import styles from './styles';
 import { Ingredient } from '@/components/Ingredient';
 import { useState } from 'react';
+import { Selected } from '@/components/Selected';
 
 export default function AppView() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -13,6 +14,10 @@ export default function AppView() {
     } else {
       setSelected((state) => [...state, value]);
     }
+  }
+
+  function clearSelectedHandler() {
+    setSelected([]);
   }
 
   return (
@@ -36,6 +41,12 @@ export default function AppView() {
               onPress={() => ToggleSelectHandler(String(index))} />
           ))}
         </ScrollView>
+
+        <Selected 
+          quantity={selected.length} 
+          onClear={clearSelectedHandler} 
+          onSearch={() => {}} 
+        />
       </View>
   );
 }

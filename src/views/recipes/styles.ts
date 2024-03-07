@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   recipes: {
-    
   },
   recipesContent: {
+    gap: 16,
     
   }
 });

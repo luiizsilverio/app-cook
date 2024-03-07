@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
     marginTop: 42,
   },
   subtitle: {
+    fontSize: theme.fonts.size.heading.lg,
     fontFamily: theme.fonts.family.regular,
-
   },
   message: {
     fontSize: theme.fonts.size.body.md,
     fontFamily: theme.fonts.family.regular,
     marginTop: 12,
-    marginBottom: 38,
+    marginBottom: 24,
     color: theme.colors.gray_400
   },
   scrollView: {

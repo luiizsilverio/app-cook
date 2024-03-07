@@ -38,9 +38,7 @@ export default function AppView() {
 
   return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          Escolha {"\n"}
-        </Text>
+        <Text style={styles.title}>Escolha</Text>
         <Text style={styles.subtitle}>os produtos</Text>
         <Text style={styles.message}>
           Descubra receitas baseadas nos produtos que você escolheu.

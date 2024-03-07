@@ -14,7 +14,13 @@ O app exibe vários ingredientes na tela principal, o usuário seleciona um ou m
 
 
 ## 📸 Screenshots
-![](https://github.com/luiizsilverio/app-cook/blob/master/src/assets/appcook.gif)
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/luiizsilverio/app-cook/blob/master/src/assets/appcook.gif" />
+    </td>
+  </tr>
+</table>
 
 
 ## 🚗 Iniciando a aplicação

@@ -1,12 +1,17 @@
-import { ScrollView, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, ScrollView, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import styles from './styles';
+import { services } from "@/services";
 import { Ingredient } from '@/components/Ingredient';
-import { useState } from 'react';
 import { Selected } from '@/components/Selected';
+import styles from './styles';
 
 export default function AppView() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([]);
+
+  const navigation = useNavigation();
 
   function ToggleSelectHandler(value: string) {
     if (selected.includes(value)) {
@@ -17,15 +22,26 @@ export default function AppView() {
   }
 
   function clearSelectedHandler() {
-    setSelected([]);
+    Alert.alert("Limpar", "Deseja limpar tudo?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => setSelected([]) }
+    ])
   }
+
+  function searchHandler() {
+    navigation.navigate("recipes", { ids: selected.join(",") });
+  }
+
+  useEffect(() => {
+    services.ingredients.findAll().then(setIngredients)
+  }, [])
 
   return (
       <View style={styles.container}>
         <Text style={styles.title}>
           Escolha {"\n"}
-          <Text style={styles.subtitle}>os produtos</Text>
         </Text>
+        <Text style={styles.subtitle}>os produtos</Text>
         <Text style={styles.message}>
           Descubra receitas baseadas nos produtos que você escolheu.
         </Text>
@@ -34,19 +50,22 @@ export default function AppView() {
           contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          {Array.from({ length: 30 }).map((_, index) => (
-            <Ingredient key={index} 
-              name='maçã' image='' 
-              selected={selected.includes(String(index))} 
-              onPress={() => ToggleSelectHandler(String(index))} />
+          {ingredients.map((ingredient) => (
+            <Ingredient key={ingredient.id} 
+              name={ingredient.name} 
+              image={`${process.env.EXPO_PUBLIC_SUPABASE_BUCKET_URL}/${ingredient.image}`} 
+              selected={selected.includes(ingredient.id)} 
+              onPress={() => ToggleSelectHandler(ingredient.id)} />
           ))}
         </ScrollView>
 
-        <Selected 
-          quantity={selected.length} 
-          onClear={clearSelectedHandler} 
-          onSearch={() => {}} 
-        />
+        {selected.length > 0 && (
+          <Selected 
+            quantity={selected.length} 
+            onClear={clearSelectedHandler} 
+            onSearch={searchHandler} 
+          />
+        )}
       </View>
   );
 }

@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 
 import StacksRoutes from '@/routes';
+import { Loading } from '@/components/Loading';
 
 export default function App() {
 
@@ -13,7 +14,7 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    return <></>;
+    return <Loading />
   }
 
   return (

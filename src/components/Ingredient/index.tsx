@@ -10,7 +10,10 @@ interface IngredientProps extends PressableProps {
 export function Ingredient({name, image, selected = false, ...rest}: IngredientProps) {
   return (
     <Pressable style={[styles.container, selected && styles.selected]} {...rest}>
-      <Image style={styles.image} source={require("../../images/apple.png")} />
+      <Image 
+        style={styles.image} 
+        source={{ uri: image }} 
+      />
       <Text style={styles.title}>{name}</Text>
     </Pressable>
   )
